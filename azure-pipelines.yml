@@ -9,29 +9,11 @@ stages:
     - job: firstjob
       steps:
       - bash: echo Build First Job
-    - job: SecondJob
-      steps:
-      - bash: echo Build Second Job
-- stage: DevDeploy
-  dependsOn: Build
-  jobs:
-    - job: DevFist
-      steps:
-      - bash: echo Dev First Job
-    - job: DevSeccond
-      steps:
-      - bash: echo Dev Second Job
-- stage: QADeploy
-  dependsOn: Build
-  jobs:
-    - job: QAJob
-      steps:
-      - bash: echo QA First Job
-- stage: ProdDeploy
-  dependsOn:
-  - DevDeploy
-  - QADeploy
-  jobs:
-    - job: ProductionsJob
-      steps:
-      - bash: echo Production First Job
+      - bash: echo $(Pipeline.Workspace)
+      - bash: echo $(Build.BuildNumber)
+      - bash: echo $(Build.BuildId)
+      - bash: echo $(Build.SourceBranchName)
+      - bash: echo $(Build.SourcesDirectory)
+      - bash: echo $(System.DefaultWorkingDirectory)
+      - bash: ls -r  $(System.DefaultWorkingDirectory)
+      - bash: echo $(Build.ArtifactStagingDirectory)
